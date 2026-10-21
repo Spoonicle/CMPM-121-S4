@@ -3,3 +3,6 @@ Learn about code smells though refactoring patterns through collaborative resear
 
 # Names
 Mason Reoch, Tim Phan, Elder Ivan Argueta
+
+
+Smells that we choose: Mysterious name, Large class, Comments
