@@ -59,9 +59,9 @@ These issues can happen in any language. In the typescript example types provide
 ### Language Comparison
 
 ## 3. Comments
-### What Is It?
-### Why Is It Problematic?
-### Prevention and Refactoring
+### Comments are text notes in simple English that explain what a code function does, so that anyone reviewing the code may understand it.Comments themselves are not a smell, but are a "deodorant" that covers up bad code smells. 
+### Comments can be problematic when they give a bad code smell a more pleasant aroma, allowing the reviewers ignore the bad smells entirely. At times you'll also see code refactored, with comments rarely being updated, leading to outdated and incorrect comments over modernized code. This is a cop-out way to avoid fixing bad code smells.
+### These issues can be prevented by writing comments that describe the code's ideal pattern, not the specifics of what the exact function is doing one step at a time. Additionally, using comments to describe workarounds, shortcuts, or alternate solutions helps streamline a confused readers understanding. 
 ### Code Examples
 ### Language Comparison
 
