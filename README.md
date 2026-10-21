@@ -14,7 +14,7 @@
 ### Code Examples
 ### Language Comparison
 
-## 2. Large Class
+## 2. Long Function
 ### What Is It?
 ### Why Is It Problematic?
 ### Prevention and Refactoring
