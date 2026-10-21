@@ -51,7 +51,7 @@ public:
 ### Language Comparison
 These issues can happen in any language. In the typescript example types provide additional information about variables and functions, but meaningful names are still necessary to explain their purpose. And in the C++ example types are explicitly declared, but vague field and function names can still make classes difficult to understand.
 
-## 2. Large Class
+## 2. Long Function
 ### What Is It?
 ### Why Is It Problematic?
 ### Prevention and Refactoring
