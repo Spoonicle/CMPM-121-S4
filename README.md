@@ -143,22 +143,27 @@ We can eliminate unnecessary comments using Martin Fowler's refactoring patterns
 In this example, a multi-line comment is used to explain a complex boolean condition, making it easy for the comment to fall out of sync if the weight logic changes later.
 
 Before refactoring:
+'''python
 def can_pick_up_item(player, item):
     # Player can pick up the item if the combined weight doesn't exceed max_carry_weight,
     # OR if the item is a quest item (quest items bypass weight limits)
     if (player.current_weight + item.weight <= player.max_carry_weight) or item.is_quest_item:
         return True
     return False
+'''
 
 After Refactoring:
+'''python
 def can_pick_up_item(player, item):
     fits_in_inventory = (player.current_weight + item.weight) <= player.max_carry_weight
     
     # Quest items bypass weight limits to prevent soft-locking story progression
     return fits_in_inventory or item.is_quest_item
+'''
 
 Example 2:
 
+'''javascript
 Before Refactoring:
 function calculateDamage(baseDamage, attacker, target) {
     let total = baseDamage;
@@ -175,8 +180,10 @@ function calculateDamage(baseDamage, attacker, target) {
 
     return total;
 }
+'''
 
 After Refactoring:
+'''javascript
 const BACKSTAB_MULTIPLIER = 1.5;
 const SHIELD_MITIGATION = 0.5;
 
@@ -201,6 +208,7 @@ function isBackstabAttack(attacker, target) {
 function hasActiveShield(target) {
     return target.buffs.includes("SHIELD");
 }
+'''
 
 ### Language Comparison
 Across different languages, Comment smells exist in similar ways, but each language has its own way of eliminating these smells. 
