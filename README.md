@@ -120,18 +120,29 @@ function checkIfDefeated() {
     }
 }
 ```
-## 3. Comments
-## 3. Comments
-### Comments are text notes in simple English that explain what a code function does, so that anyone reviewing the code may understand it. Comments themselves are not a smell, but are a "deodorant" that covers up bad code smells.
 
-### Comments can be problematic when they give a bad code smell a more pleasant aroma, allowing the reviewers ignore the bad smells entirely. At times you'll also see code refactored, with comments rarely being updated, leading to outdated and incorrect comments over modernized code. This is a cop-out way to avoid fixing bad code smells.
+## 3. Comments
 
-### These issues can be prevented by writing comments that describe the code's ideal pattern, not the specifics of what the exact function is doing one step at a time. Additionally, using comments to describe workarounds, shortcuts, or alternate solutions helps streamline a confused readers understanding. 
+### What Is It?
+Comments are text notes in simple English that explain what a code function does so that anyone reviewing the code may understand it. Comments themselves are not a smell, but as Martin Fowler notes, they are often used as a "deodorant" that covers up bad code smells.
+
+### Why Is It Problematic?
+Comments become problematic when they give bad code a more pleasant aroma, allowing reviewers to ignore the underlying structural issues entirely. At times, code is refactored while comments are rarely updated, leading to outdated and misleading notes sitting above modernized code. Relying on heavy inline comments is often a cop-out way to avoid fixing unclear variable names or overly complex logic.
+
+### Prevention and Refactoring
+These issues can be prevented by writing self-documenting code and reserving comments to describe *why* a decision was made (such as workarounds, shortcuts, or alternate solutions), rather than narrating *what* the function is doing one step at a time. 
+
+We can eliminate unnecessary comments using Martin Fowler's refactoring patterns:
+- **Extract Variable (page 119):** Break complex expressions into descriptive local variables or constants so the math or boolean logic explains itself.
+- **Extract Function (page 106):** Move a commented block of code into its own helper function named after what the comment was trying to explain.
+- **Rename Function / Rename Variable (page 124 / 137):** Update vague identifiers so they don't require a translation note.
 
 ### Code Examples
-In this example, comments are used as section headers to explain each step of a stamina and dash check, masking a function that is doing too many low-level checks directly.
 
-Before Refactoring:
+**Example 1 (Python):**
+In this example, a multi-line comment is used to explain a complex boolean condition, making it easy for the comment to fall out of sync if the weight logic changes later.
+
+Before refactoring:
 def can_pick_up_item(player, item):
     # Player can pick up the item if the combined weight doesn't exceed max_carry_weight,
     # OR if the item is a quest item (quest items bypass weight limits)
@@ -139,7 +150,7 @@ def can_pick_up_item(player, item):
         return True
     return False
 
-After Refactoring: 
+After Refactoring:
 def can_pick_up_item(player, item):
     fits_in_inventory = (player.current_weight + item.weight) <= player.max_carry_weight
     
@@ -190,7 +201,6 @@ function isBackstabAttack(attacker, target) {
 function hasActiveShield(target) {
     return target.buffs.includes("SHIELD");
 }
-
 
 ### Language Comparison
 Across different languages, Comment smells exist in similar ways, but each language has its own way of eliminating these smells. 
