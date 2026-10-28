@@ -133,9 +133,9 @@ Comments become problematic when they give bad code a more pleasant aroma, allow
 These issues can be prevented by writing self-documenting code and reserving comments to describe *why* a decision was made (such as workarounds, shortcuts, or alternate solutions), rather than narrating *what* the function is doing one step at a time. 
 
 We can eliminate unnecessary comments using Martin Fowler's refactoring patterns:
-- **Extract Variable (page 119):** Break complex expressions into descriptive local variables or constants so the math or boolean logic explains itself.
-- **Extract Function (page 106):** Move a commented block of code into its own helper function named after what the comment was trying to explain.
-- **Rename Function / Rename Variable (page 124 / 137):** Update vague identifiers so they don't require a translation note.
+- **Extract Variable:** Break complex expressions into descriptive local variables or constants so the math or boolean logic explains itself.
+- **Extract Function:** Move a commented block of code into its own helper function named after what the comment was trying to explain.
+- **Rename Function / Rename Variable:** Update vague identifiers so they don't require a translation note.
 
 ### Code Examples
 
