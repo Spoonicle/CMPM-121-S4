@@ -121,47 +121,82 @@ function checkIfDefeated() {
 }
 ```
 ## 3. Comments
-### Comments are text notes in simple English that explain what a code function does, so that anyone reviewing the code may understand it.Comments themselves are not a smell, but are a "deodorant" that covers up bad code smells. 
+## 3. Comments
+### Comments are text notes in simple English that explain what a code function does, so that anyone reviewing the code may understand it. Comments themselves are not a smell, but are a "deodorant" that covers up bad code smells.
 
 ### Comments can be problematic when they give a bad code smell a more pleasant aroma, allowing the reviewers ignore the bad smells entirely. At times you'll also see code refactored, with comments rarely being updated, leading to outdated and incorrect comments over modernized code. This is a cop-out way to avoid fixing bad code smells.
+
 ### These issues can be prevented by writing comments that describe the code's ideal pattern, not the specifics of what the exact function is doing one step at a time. Additionally, using comments to describe workarounds, shortcuts, or alternate solutions helps streamline a confused readers understanding. 
 
 ### Code Examples
-Before Refactoring: The comments explain what each line does because the function and variable names do not clearly communicate their purpose.
-```
-void Update()
-{
-    // Add 1 to the player's score
-    s += 1;
+In this example, comments are used as section headers to explain each step of a stamina and dash check, masking a function that is doing too many low-level checks directly.
 
-    // Print the score to the console
-    Debug.Log(s);
-}
-```
-After
-```
-void IncreasePlayerScore()
-{
-    playerScore += 1;
-    Debug.Log(playerScore);
-}
-```
-Before refactoring: The comment describes each step of the code, making it harder to notice that the function's purpose is simply to check whether the player has enough coins.
-```
-function checkCoins(coins, price) {
-    // Check if the coins are greater than or equal to the price
-    if (coins >= price) {
-        // Return true if the player can afford the item
-        return true;
+Before Refactoring:
+def can_pick_up_item(player, item):
+    # Player can pick up the item if the combined weight doesn't exceed max_carry_weight,
+    # OR if the item is a quest item (quest items bypass weight limits)
+    if (player.current_weight + item.weight <= player.max_carry_weight) or item.is_quest_item:
+        return True
+    return False
+
+After Refactoring: 
+def can_pick_up_item(player, item):
+    fits_in_inventory = (player.current_weight + item.weight) <= player.max_carry_weight
+    
+    # Quest items bypass weight limits to prevent soft-locking story progression
+    return fits_in_inventory or item.is_quest_item
+
+Example 2:
+
+Before Refactoring:
+function calculateDamage(baseDamage, attacker, target) {
+    let total = baseDamage;
+
+    // Apply 1.5x multiplier if attacker hits from behind (backstab)
+    if (attacker.isBehind(target)) {
+        total *= 1.5;
     }
 
-    // Otherwise, return false
-    return false;
+    // Reduce damage by half if target has active shield buff
+    if (target.buffs.includes("SHIELD")) {
+        total *= 0.5;
+    }
+
+    return total;
 }
-```
-After: The function name more clearly explains its task and a direct boolean return makes the code more self-explanatory, allowing us to remove the comments.
-```
-function canAffordItem(coins, price) {
-    return coins >= price;
+
+After Refactoring:
+const BACKSTAB_MULTIPLIER = 1.5;
+const SHIELD_MITIGATION = 0.5;
+
+function calculateDamage(baseDamage, attacker, target) {
+    let totalDamage = baseDamage;
+
+    if (isBackstabAttack(attacker, target)) {
+        totalDamage *= BACKSTAB_MULTIPLIER;
+    }
+
+    if (hasActiveShield(target)) {
+        totalDamage *= SHIELD_MITIGATION;
+    }
+
+    return totalDamage;
 }
-```
+
+function isBackstabAttack(attacker, target) {
+    return attacker.isBehind(target);
+}
+
+function hasActiveShield(target) {
+    return target.buffs.includes("SHIELD");
+}
+
+
+### Language Comparison
+Across different languages, Comment smells exist in similar ways, but each language has its own way of eliminating these smells. 
+
+Python features Docstrings ("""...""") and optional Type Hints (def attack(target:Enemy) -> bool:) 
+Docstrings are great for explaining module and public function behaviors. Using inline # comments is a key indicator that you should break up the expression into multiple named variables. 
+
+JavaScript frequently uses JSDoc comments (/** @param {number} damage */) just to explain parameter types.
+It's a great practice to transition to TypeScript so you don't need these type-explanatory comments.
